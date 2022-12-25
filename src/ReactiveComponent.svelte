@@ -5,7 +5,7 @@
   let destroyed = false;
 
   onDestroy(() => {
-    console.log("DESTROY")
+    // included to show that this is not enough to "fix" the bug in unit test plugin.
     destroyed = true;
   })
 </script>
