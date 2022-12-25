@@ -1,0 +1,8 @@
+{
+  "video": false,
+  "baseUrl": "http://localhost:8080",
+  "experimentalComponentTesting": true,
+  "experimentalFetchPolyfill": true,
+  "componentFolder": "src",
+  "testFiles": "**/*spec.js"
+}
