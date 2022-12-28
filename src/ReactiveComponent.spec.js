@@ -11,10 +11,7 @@ import { testStore } from './stores';
  *
  * It does not happen when there is only two cases.
  */
-//<div id="here"></div>
-//language=HTML prefix=<body> suffix=</body>
-const html = `
-`;
+
 //language=CSS
 const style = `
     #container {
@@ -33,9 +30,7 @@ describe('Reactive component using data from a store', () => {
 
     // on second mount we expect the component to write "Default case"
     it('should work on second mount', () => {
-        mount(ReactiveComponent, {}, {
-            html
-        });
+        mount(ReactiveComponent);
         testStore.set({
             numberValue: 1,
         });

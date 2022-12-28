@@ -20,7 +20,8 @@ support testing of code bases on earlier versions of cypress.
 **1. install packages**
 
 ```sh
-npm install
+# install specific version with the bug
+npm install cypress-svelte-unit-test@3.3.4
 ```
 
 **2. Run the test!**
@@ -34,3 +35,19 @@ npm run cypress:run
 Expected result is that the very simple test will succeed, but it doesn't. It fails because the component is not
 completely destroyed between test cases. Updating the svelte store will then trigger DOM updates in these leaked
 components.
+
+**4. Replace package with PR version**
+
+Prerequisites: 
+- checkout branch, run `git clone --branch destroy-component https://github.com/royalrex/cypress-svelte-unit-test.git`
+- remember the location it was cloned to
+- run `npm run build`
+
+```sh
+# install from path, where the path is pointing to the above local cloned repo.
+npm install ../cypress-svelte-unit-test
+```
+
+**5. Observe the bug has been fixed**
+
+Observe that the tests now pass as expected.
