@@ -17,19 +17,19 @@ support testing of code bases on earlier versions of cypress.
 
 ## Install & Run
 
-1. install packages
+**1. install packages**
 
 ```sh
 npm install
 ```
 
-2. Run the test!
+**2. Run the test!**
 
 ```sh
 npm run cypress:run
 ```
 
-3. Observe the bug
+**3. Observe the bug**
 
 Expected result is that the very simple test will succeed, but it doesn't. It fails because the component is not
 completely destroyed between test cases. Updating the svelte store will then trigger DOM updates in these leaked
