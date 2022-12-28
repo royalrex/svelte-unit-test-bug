@@ -1,64 +1,36 @@
-# svelte app
+# Bug repo for cypress-svelte-unit-test
 
-This is a project template for [Svelte](https://svelte.dev) apps. It lives at https://github.com/sveltejs/template-webpack.
+This repository contains a simple case for which the cypress-svelte-unit-test fails because of the way the tested
+component is removed from the DOM.
 
-To create a new project based on this template using [degit](https://github.com/Rich-Harris/degit):
+Dependencies:
 
-```bash
-npx degit sveltejs/template-webpack svelte-app
-cd svelte-app
-```
+- Cypress 6.9.1
+- cypress-svelte-unit-test 3.3.4
 
-*Note that you will need to have [Node.js](https://nodejs.org) installed.*
+### Bug
 
+The plugin does not properly destroy the tested component giving a memory leak, but also hinders proper testing of more
+advanced components. In particular; the bug will break components that are updated through shared svelte stores. The fix
+is inspired by how cypress have added support for svelte components in v10.7.0. The motivation for this fix is to
+support testing of code bases on earlier versions of cypress.
 
-## Get started
+## Install & Run
 
-Install the dependencies...
+1. install packages
 
-```bash
-cd svelte-app
+```sh
 npm install
 ```
 
-...then start webpack:
+2. Run the test!
 
-```bash
-npm run dev
+```sh
+npm run cypress:run
 ```
 
-Navigate to [localhost:8080](http://localhost:8080). You should see your app running. Edit a component file in `src`, save it, and the page should reload with your changes.
+3. Observe the bug
 
-
-## Deploying to the web
-
-### With [now](https://zeit.co/now)
-
-Install `now` if you haven't already:
-
-```bash
-npm install -g now
-```
-
-Then, from within your project folder:
-
-```bash
-now
-```
-
-As an alternative, use the [Now desktop client](https://zeit.co/download) and simply drag the unzipped project folder to the taskbar icon.
-
-### With [surge](https://surge.sh/)
-
-Install `surge` if you haven't already:
-
-```bash
-npm install -g surge
-```
-
-Then, from within your project folder:
-
-```bash
-npm run build
-surge public
-```
+Expected result is that the very simple test will succeed, but it doesn't. It fails because the component is not
+completely destroyed between test cases. Updating the svelte store will then trigger DOM updates in these leaked
+components.
